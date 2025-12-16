@@ -8,10 +8,13 @@ def flatten_electrons(arr, max_electrons=2):
 
     df["nElectron"] = ak.num(arr["Electron_pt"])
 
+    # Pad electron pt and eta arrays so each event has exactly max_electrons entries
+    # Missing electrons are temporarily set to None
     padded_pt  = ak.pad_none(arr["Electron_pt"],  max_electrons)
     padded_eta = ak.pad_none(arr["Electron_eta"], max_electrons)
 
     for i in range(max_electrons):
+        # Fill missing values (None) with 0 and convert to NumPy array for pandas
         df[f"Electron{i+1}_pt"]  = ak.to_numpy(ak.fill_none(padded_pt[:,  i],  0))
         df[f"Electron{i+1}_eta"] = ak.to_numpy(ak.fill_none(padded_eta[:, i], 0))
 

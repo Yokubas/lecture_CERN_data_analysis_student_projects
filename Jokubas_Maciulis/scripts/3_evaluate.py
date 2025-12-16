@@ -27,7 +27,7 @@ model = tf.keras.models.load_model("results/electron_classifier.h5")
 y_scores = model.predict(X_test).ravel()
 
 # Compute the False Positive Rate (FPR) and True Positive Rate (TPR)
-# for various probability thresholds. This is used to create the ROC curve.
+# for various probability thresholds. This is used to create the ROC (Receiver Operating Characteristics) curve.
 fpr, tpr, thresholds = roc_curve(y_test, y_scores)
 
 # Compute the Area Under the Curve (AUC) from the FPR and TPR.
